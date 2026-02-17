@@ -1,24 +1,38 @@
 FROM php:8.2-cli
 
-# Install dependency sistem
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    unzip \
     git \
-    curl
+    unzip \
+    curl \
+    libicu-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libzip-dev \
+    zip
 
-# Install ekstensi MySQL
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install \
+        mysqli \
+        pdo \
+        pdo_mysql \
+        intl \
+        gd \
+        zip
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
-# Copy semua file project
+# Copy project files
 COPY . /app
 
-# Install dependency CI4
+# Install dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Jalankan built-in PHP server
+# Expose app
 CMD php -S 0.0.0.0:$PORT -t public
