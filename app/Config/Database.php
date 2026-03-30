@@ -28,7 +28,7 @@ class Database extends Config
         'DSN'          => '',
         'hostname'     => 'mysql.railway.internal',
         'username'     => 'root',
-        'password'     => 'YWZAIHaVeNrDdhffHsQhvtzvlUmEZxgR',
+        'password'     => 'mhJkqcljIvjUpPQhuNvPFZaMKgRdMxVJ',
         'database'     => 'railway',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
